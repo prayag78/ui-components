@@ -212,16 +212,6 @@ src/
 └── index.css                        # Global styles
 ```
 
-### Available Scripts
-
-- `npm run dev` - Start Vite development server
-- `npm run build` - Build for production
-- `npm run preview` - Preview production build
-- `npm run storybook` - Start Storybook development server
-- `npm run build-storybook` - Build Storybook for production
-
-- `npm run lint` - Run ESLint
-
 ## 🎨 Styling
 
 The components use TailwindCSS v4 with a modern, clean design system:
