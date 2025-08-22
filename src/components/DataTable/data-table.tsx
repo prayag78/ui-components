@@ -166,33 +166,33 @@ export function DataTable<T extends object = object>({
   if (loading) {
     return (
       <div className={clsx("w-full", className)}>
-        <div className="bg-white rounded-lg shadow overflow-hidden">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden">
           <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
+            <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+              <thead className="bg-gray-50 dark:bg-gray-700">
                 <tr>
                   {selectable && (
                     <th scope="col" className="px-6 py-3 text-left">
-                      <div className="w-4 h-4 bg-gray-300 rounded animate-pulse" />
+                      <div className="w-4 h-4 bg-gray-300 dark:bg-gray-600 rounded animate-pulse" />
                     </th>
                   )}
                   {columns.map((column) => (
                     <th
                       key={column.key}
                       scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider"
                     >
-                      <div className="w-20 h-4 bg-gray-300 rounded animate-pulse" />
+                      <div className="w-20 h-4 bg-gray-300 dark:bg-gray-600 rounded animate-pulse" />
                     </th>
                   ))}
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
+              <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
                 {Array.from({ length: 5 }).map((_, rowIndex) => (
                   <tr key={rowIndex}>
                     {selectable && (
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="w-4 h-4 bg-gray-300 rounded animate-pulse" />
+                        <div className="w-4 h-4 bg-gray-300 dark:bg-gray-600 rounded animate-pulse" />
                       </td>
                     )}
                     {columns.map((column) => (
@@ -200,7 +200,7 @@ export function DataTable<T extends object = object>({
                         key={column.key}
                         className="px-6 py-4 whitespace-nowrap"
                       >
-                        <div className="w-24 h-4 bg-gray-300 rounded animate-pulse" />
+                        <div className="w-24 h-4 bg-gray-300 dark:bg-gray-600 rounded animate-pulse" />
                       </td>
                     ))}
                   </tr>
@@ -215,16 +215,16 @@ export function DataTable<T extends object = object>({
 
   return (
     <div className={clsx("w-full", className)}>
-      <div className="bg-white rounded-lg shadow overflow-hidden">
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
+          <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+            <thead className="bg-gray-50 dark:bg-gray-700">
               <tr>
                 {selectable && (
                   <th scope="col" className="px-6 py-3 text-left">
                     <input
                       type="checkbox"
-                      className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                      className="rounded border-gray-300 dark:border-gray-600 text-blue-600 focus:ring-blue-500"
                       checked={
                         selectedRows.size === data.length && data.length > 0
                       }
@@ -238,9 +238,9 @@ export function DataTable<T extends object = object>({
                     key={column.key}
                     scope="col"
                     className={clsx(
-                      "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider",
+                      "px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider",
                       column.sortable &&
-                        "cursor-pointer hover:bg-gray-100 select-none",
+                        "cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 select-none",
                       column.width && `w-${column.width}`
                     )}
                     onClick={() => column.sortable && handleSort(column.key)}
@@ -251,7 +251,8 @@ export function DataTable<T extends object = object>({
                     <div
                       className={clsx(
                         "flex items-center space-x-1",
-                        column.sortable && "hover:text-gray-700"
+                        column.sortable &&
+                          "hover:text-gray-700 dark:hover:text-gray-200"
                       )}
                     >
                       <span>{column.title}</span>
@@ -261,20 +262,21 @@ export function DataTable<T extends object = object>({
                 ))}
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
+            <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
               {sortedData.map((row, rowIndex) => (
                 <tr
                   key={rowIndex}
                   className={clsx(
-                    "hover:bg-gray-50 transition-colors duration-150",
-                    selectedRows.has(rowIndex) && "bg-blue-50 hover:bg-blue-100"
+                    "hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-150",
+                    selectedRows.has(rowIndex) &&
+                      "bg-blue-50 dark:bg-blue-900/20 hover:bg-blue-100 dark:hover:bg-blue-900/30"
                   )}
                 >
                   {selectable && (
                     <td className="px-6 py-4 whitespace-nowrap">
                       <input
                         type="checkbox"
-                        className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                        className="rounded border-gray-300 dark:border-gray-600 text-blue-600 focus:ring-blue-500"
                         checked={selectedRows.has(rowIndex)}
                         onChange={(e) =>
                           handleRowSelect(rowIndex, e.target.checked)
@@ -286,7 +288,7 @@ export function DataTable<T extends object = object>({
                   {columns.map((column) => (
                     <td
                       key={column.key}
-                      className="px-6 py-4 whitespace-nowrap text-sm text-gray-900"
+                      className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100"
                     >
                       {column.render ? (
                         column.render(
@@ -306,8 +308,8 @@ export function DataTable<T extends object = object>({
         </div>
 
         {selectable && selectedRows.size > 0 && (
-          <div className="bg-gray-50 px-6 py-3 border-t border-gray-200">
-            <p className="text-sm text-gray-600">
+          <div className="bg-gray-50 dark:bg-gray-700 px-6 py-3 border-t border-gray-200 dark:border-gray-600">
+            <p className="text-sm text-gray-600 dark:text-gray-300">
               {selectedRows.size} of {data.length} rows selected
             </p>
           </div>

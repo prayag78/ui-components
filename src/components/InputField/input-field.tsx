@@ -63,10 +63,10 @@ export const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
     };
 
     const baseInputClasses = clsx(
-      "w-full transition-all duration-200 ease-in-out font-medium text-gray-500",
+      "w-full transition-all duration-200 ease-in-out font-medium text-gray-500 dark:text-gray-300",
       "focus:outline-none focus:ring-2 focus:ring-offset-0",
       "disabled:opacity-50 disabled:cursor-not-allowed",
-      "placeholder:text-gray-400",
+      "placeholder:text-gray-400 dark:placeholder:text-gray-500",
       {
         sm: "px-3 py-2 text-sm",
         md: "px-4 py-3 text-base",
@@ -74,33 +74,34 @@ export const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
       }[size],
       {
         filled: clsx(
-          "bg-gray-100 border-0 rounded-lg",
-          "focus:bg-white focus:ring-blue-500",
-          "hover:bg-gray-50",
-          invalid && "bg-red-50 focus:bg-red-50 focus:ring-red-500"
+          "bg-gray-100 dark:bg-gray-800 border-0 rounded-lg",
+          "focus:bg-white dark:focus:bg-gray-700 focus:ring-blue-500",
+          "hover:bg-gray-50 dark:hover:bg-gray-700",
+          invalid &&
+            "bg-red-50 dark:bg-red-900/20 focus:bg-red-50 dark:focus:bg-red-900/20 focus:ring-red-500"
         ),
         outlined: clsx(
           "bg-transparent border rounded-lg",
           "focus:ring-blue-500",
           invalid
-            ? "border-red-300 focus:border-red-500"
-            : "border-gray-300 focus:border-blue-500",
-          "hover:border-gray-400"
+            ? "border-red-300 dark:border-red-600 focus:border-red-500"
+            : "border-gray-300 dark:border-gray-600 focus:border-blue-500",
+          "hover:border-gray-400 dark:hover:border-gray-500"
         ),
         ghost: clsx(
-          "bg-transparent border-b-2 rounded-md border-gray-300",
+          "bg-transparent border-b-2 rounded-md border-gray-300 dark:border-gray-600",
           "focus:ring-0 focus:border-blue-500",
           "focus:outline-none",
           invalid
-            ? "border-red-300 focus:border-red-500"
-            : "border-gray-300 focus:border-blue-500",
-          "hover:border-gray-400"
+            ? "border-red-300 dark:border-red-600 focus:border-red-500"
+            : "border-gray-300 dark:border-gray-600 focus:border-blue-500",
+          "hover:border-gray-400 dark:hover:border-gray-500"
         ),
       }[variant]
     );
 
     const labelClasses = clsx(
-      "block font-medium text-gray-700 mb-2",
+      "block font-medium text-gray-700 dark:text-gray-200 mb-2",
       {
         sm: "text-sm",
         md: "text-base",
@@ -110,7 +111,9 @@ export const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
 
     const helperTextClasses = clsx(
       "mt-2 text-sm",
-      errorMessage ? "text-red-600" : "text-gray-500"
+      errorMessage
+        ? "text-red-600 dark:text-red-400"
+        : "text-gray-500 dark:text-gray-400"
     );
 
     return (
@@ -146,7 +149,7 @@ export const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
               onClick={togglePassword}
               className={clsx(
                 "absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer",
-                "text-gray-400 hover:text-gray-600 transition-colors duration-200",
+                "text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 transition-colors duration-200",
                 {
                   sm: "text-sm",
                   md: "text-base",

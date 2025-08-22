@@ -66,7 +66,13 @@ const userColumns: Column<User>[] = [
     dataIndex: "status",
     sortable: true,
     render: (value) => (
-      <span className={value === "active" ? "text-green-600" : "text-red-600"}>
+      <span
+        className={
+          value === "active"
+            ? "text-green-600 dark:text-green-400"
+            : "text-red-600 dark:text-red-400"
+        }
+      >
         {String(value)}
       </span>
     ),
@@ -139,7 +145,7 @@ function App() {
               <InputField
                 label="Username"
                 placeholder="Enter username"
-                required={true}   
+                required={true}
                 value={usernameValue}
                 onChange={(e) => setUsernameValue(e.target.value)}
                 invalid={true}
@@ -160,7 +166,7 @@ function App() {
                 onChange={(e) => setFullNameValue(e.target.value)}
                 variant="filled"
                 className="text-gray-500"
-                size="sm"
+                size="md"
               />
             </div>
 
@@ -188,7 +194,7 @@ function App() {
                 placeholder="Tell us about yourself"
                 value={bioValue}
                 onChange={(e) => setBioValue(e.target.value)}
-                size="sm"
+                size="lg"
                 className="text-gray-500"
               />
             </div>
