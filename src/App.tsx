@@ -67,11 +67,11 @@ const userColumns: Column<User>[] = [
     sortable: true,
     render: (value) => (
       <span
-        className={
+        className={`inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ${
           value === "active"
-            ? "text-green-600 dark:text-green-400"
-            : "text-red-600 dark:text-red-400"
-        }
+            ? "bg-green-50 text-green-700 ring-1 ring-inset ring-green-600/20 dark:bg-green-500/10 dark:text-green-400 dark:ring-green-500/20"
+            : "bg-red-50 text-red-700 ring-1 ring-inset ring-red-600/20 dark:bg-red-500/10 dark:text-red-400 dark:ring-red-500/20"
+        }`}
       >
         {String(value)}
       </span>
@@ -86,148 +86,213 @@ const userColumns: Column<User>[] = [
 ];
 
 function App() {
-  const [inputValue, setInputValue] = useState("");
-  const [passwordValue, setPasswordValue] = useState("");
-  const [usernameValue, setUsernameValue] = useState("");
-  const [fullNameValue, setFullNameValue] = useState("");
-  const [companyValue, setCompanyValue] = useState("");
-  const [bioValue, setBioValue] = useState("");
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+    username: "",
+    fullName: "",
+    company: "",
+    bio: "",
+    phone: "",
+    small: "",
+    medium: "",
+    large: "",
+    disabled: "",
+  });
+
+  const handleInputChange =
+    (field: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
+      setFormData((prev) => ({ ...prev, [field]: e.target.value }));
+    };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            UI Components Library
-          </h1>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
+      <header className="border-b border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            <div className="flex items-center space-x-3">
+              <div className="h-8 w-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                <span className="text-white font-bold text-sm">UI</span>
+              </div>
+              <h1 className="text-xl font-semibold text-slate-900 dark:text-white">
+                Component Library
+              </h1>
+            </div>
+          </div>
         </div>
+      </header>
 
-        <section className="mb-16">
-          <h2 className="text-2xl font-semibold text-gray-900 mb-8">
-            InputField Component
-          </h2>
+      <main className="max-w-7xl mt-20 mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+        <section className="mb-20">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">
+              InputField Component
+            </h2>
+            <p className="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
+              Flexible and accessible input fields with multiple variants,
+              sizes, and states. Perfect for building modern forms.
+            </p>
+          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div>
-              <h3 className="text-lg font-medium text-gray-900 mb-4">
-                Basic Input
+          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
+            <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm">
+              <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-6">
+                Basic Examples
               </h3>
-              <InputField
-                label="Email Address"
-                placeholder="Enter your email"
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-                variant="outlined"
-                size="sm"
-              />
+              <div className="space-y-6">
+                <InputField
+                  label="Email Address"
+                  placeholder="john.doe@example.com"
+                  value={formData.email}
+                  onChange={handleInputChange("email")}
+                  variant="outlined"
+                  size="md"
+                />
+                <InputField
+                  label="Full Name"
+                  placeholder="Enter your full name"
+                  value={formData.fullName}
+                  onChange={handleInputChange("fullName")}
+                  variant="filled"
+                  size="md"
+                />
+                <InputField
+                  label="Company"
+                  placeholder="Acme Corp"
+                  value={formData.company}
+                  onChange={handleInputChange("company")}
+                  variant="ghost"
+                  size="md"
+                />
+              </div>
             </div>
 
-            <div>
-              <h3 className="text-lg font-medium text-gray-900 mb-4">
-                Password Input
+            <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm">
+              <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-6">
+                Password & Validation
               </h3>
-              <InputField
-                label="Password"
-                type="password"
-                placeholder="Enter your password"
-                value={passwordValue}
-                onChange={(e) => setPasswordValue(e.target.value)}
-                showPasswordToggle={true}
-                className="text-gray-500"
-                size="sm"
-              />
+              <div className="space-y-6">
+                <InputField
+                  label="Password"
+                  type="password"
+                  placeholder="Enter your password"
+                  value={formData.password}
+                  onChange={handleInputChange("password")}
+                  showPasswordToggle={true}
+                  size="md"
+                />
+                <InputField
+                  label="Username"
+                  placeholder="Enter username"
+                  required={true}
+                  value={formData.username}
+                  onChange={handleInputChange("username")}
+                  invalid={
+                    formData.username.length > 0 && formData.username.length < 3
+                  }
+                  errorMessage={
+                    formData.username.length > 0 && formData.username.length < 3
+                      ? "Username must be at least 3 characters"
+                      : undefined
+                  }
+                  size="md"
+                />
+                <InputField
+                  label="Phone Number"
+                  placeholder="+1 (555) 123-4567"
+                  value={formData.phone}
+                  onChange={handleInputChange("phone")}
+                  size="md"
+                />
+              </div>
             </div>
 
-            <div>
-              <h3 className="text-lg font-medium text-gray-900 mb-4">
-                Error State
+            <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm">
+              <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-6">
+                Sizes & States
               </h3>
-              <InputField
-                label="Username"
-                placeholder="Enter username"
-                required={true}
-                value={usernameValue}
-                onChange={(e) => setUsernameValue(e.target.value)}
-                invalid={true}
-                errorMessage="Username is required"
-                className="text-gray-500"
-                size="sm"
-              />
-            </div>
-
-            <div>
-              <h3 className="text-lg font-medium text-gray-900 mb-4">
-                Filled Variant
-              </h3>
-              <InputField
-                label="Full Name"
-                placeholder="Enter your full name"
-                value={fullNameValue}
-                onChange={(e) => setFullNameValue(e.target.value)}
-                variant="filled"
-                className="text-gray-500"
-                size="md"
-              />
-            </div>
-
-            <div>
-              <h3 className="text-lg font-medium text-gray-900 mb-4">
-                Ghost Variant
-              </h3>
-              <InputField
-                label="Company"
-                placeholder="Enter company name"
-                value={companyValue}
-                onChange={(e) => setCompanyValue(e.target.value)}
-                variant="ghost"
-                className="text-gray-500"
-                size="sm"
-              />
-            </div>
-
-            <div>
-              <h3 className="text-lg font-medium text-gray-900 mb-4">
-                Large Size
-              </h3>
-              <InputField
-                label="Bio"
-                placeholder="Tell us about yourself"
-                value={bioValue}
-                onChange={(e) => setBioValue(e.target.value)}
-                size="lg"
-                className="text-gray-500"
-              />
+              <div className="space-y-6">
+                <InputField
+                  label="Small Size"
+                  placeholder="Small input"
+                  value={formData.small}
+                  onChange={handleInputChange("small")}
+                  size="sm"
+                />
+                <InputField
+                  label="Medium Size (Default)"
+                  placeholder="Medium input"
+                  value={formData.medium}
+                  onChange={handleInputChange("medium")}
+                  size="md"
+                />
+                <InputField
+                  label="Large Size"
+                  placeholder="Large input"
+                  value={formData.large}
+                  onChange={handleInputChange("large")}
+                  size="lg"
+                />
+                <InputField
+                  label="Disabled State"
+                  placeholder="This is disabled"
+                  value="Cannot edit this"
+                  onChange={handleInputChange("disabled")}
+                  disabled={true}
+                  size="md"
+                />
+              </div>
             </div>
           </div>
         </section>
 
-        <section className="mb-16">
-          <h2 className="text-2xl font-semibold text-gray-900 mb-8">
-            DataTable Component
-          </h2>
+        <section>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">
+              DataTable Component
+            </h2>
+            <p className="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
+              Powerful data tables with sorting, selection, and customizable
+              rendering. Built for performance and accessibility.
+            </p>
+          </div>
 
           <div className="space-y-8">
-            <div>
-              <h3 className="text-lg font-medium text-gray-900 mb-4">
-                Basic Table
-              </h3>
-              <DataTable data={sampleUsers} columns={userColumns} />
+            <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden shadow-sm">
+              <div className="p-6 border-b border-slate-200 dark:border-slate-700">
+                <h3 className="text-xl font-semibold text-slate-900 dark:text-white">
+                  Basic Data Table
+                </h3>
+                <p className="text-slate-600 dark:text-slate-300 mt-1">
+                  Simple table with sorting capabilities
+                </p>
+              </div>
+              <div className="p-6">
+                <DataTable data={sampleUsers} columns={userColumns} />
+              </div>
             </div>
 
-            <div>
-              <h3 className="text-lg font-medium text-gray-900 mb-4">
-                Table with Row Selection
-              </h3>
-              <DataTable
-                data={sampleUsers}
-                columns={userColumns}
-                selectable={true}
-                onRowSelect={(rows) => console.log(rows)}
-              />
+            <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden shadow-sm">
+              <div className="p-6 border-b border-slate-200 dark:border-slate-700">
+                <h3 className="text-xl font-semibold text-slate-900 dark:text-white">
+                  Selectable Data Table
+                </h3>
+                <p className="text-slate-600 dark:text-slate-300 mt-1">
+                  Table with row selection and bulk actions
+                </p>
+              </div>
+              <div className="p-6">
+                <DataTable
+                  data={sampleUsers}
+                  columns={userColumns}
+                  selectable={true}
+                  onRowSelect={(rows) => console.log("Selected rows:", rows)}
+                />
+              </div>
             </div>
           </div>
         </section>
-      </div>
+      </main>
     </div>
   );
 }
